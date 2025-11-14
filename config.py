@@ -71,6 +71,11 @@ class Settings(BaseSettings):
     KEYWORD_OPTIMIZER_BASE_URL: Optional[str] = Field("https://api.siliconflow.cn/v1", description="Keyword Optimizer BaseUrl")
     KEYWORD_OPTIMIZER_MODEL_NAME: str = Field("Qwen/Qwen3-30B-A3B-Instruct-2507", description="Keyword Optimizer LLM模型名称，如Qwen/Qwen3-30B-A3B-Instruct-2507")
     
+    # MindSpider（爬虫系统使用的LLM，推荐DeepSeek，申请地址：https://www.deepseek.com/）
+    MINDSPIDER_API_KEY: Optional[str] = Field(None, description="MindSpider爬虫系统使用的LLM API密钥（推荐DeepSeek，https://www.deepseek.com/）")
+    MINDSPIDER_BASE_URL: Optional[str] = Field("https://api.deepseek.com", description="MindSpider LLM接口BaseUrl")
+    MINDSPIDER_MODEL_NAME: str = Field("deepseek-reasoner", description="MindSpider LLM模型名称，如deepseek-reasoner")
+    
     # ================== 网络工具配置 ====================
     # Tavily API（申请地址：https://www.tavily.com/）
     TAVILY_API_KEY: Optional[str] = Field(None, description="Tavily API（申请地址：https://www.tavily.com/）API密钥，用于Tavily网络搜索")
