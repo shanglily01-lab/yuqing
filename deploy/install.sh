@@ -64,12 +64,19 @@ install_system_dependencies() {
         sudo yum groupinstall -y "Development Tools" || true
         sudo yum install -y python3 python3-pip python3-devel git gcc gcc-c++ make \
             openssl-devel libffi-devel zlib-devel bzip2-devel readline-devel \
-            sqlite-devel xz-devel expat-devel mariadb-devel
+            sqlite-devel xz-devel expat-devel mariadb-devel || \
+            sudo yum install -y mariadb-connector-c-devel || true
     else
         sudo dnf groupinstall -y "Development Tools" || true
+        # Amazon Linux 2023使用不同的包名
         sudo dnf install -y python3 python3-pip python3-devel git gcc gcc-c++ make \
             openssl-devel libffi-devel zlib-devel bzip2-devel readline-devel \
-            sqlite-devel xz-devel expat-devel mariadb-devel
+            sqlite-devel xz-devel expat-devel || true
+        # 尝试安装MariaDB开发包（Amazon Linux 2023可能使用不同名称）
+        sudo dnf install -y mariadb-connector-c-devel || \
+        sudo dnf install -y mariadb-devel || \
+        sudo dnf install -y mysql-devel || \
+        log_warn "MariaDB开发包未安装，可能影响数据库连接，但可以继续"
     fi
 }
 

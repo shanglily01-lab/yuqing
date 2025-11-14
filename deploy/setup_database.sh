@@ -74,6 +74,11 @@ init_tables() {
     PROJECT_DIR=${1:-/opt/BettaFish}
     log_info "初始化数据库表..."
     
+    # 处理相对路径
+    if [ "${PROJECT_DIR:0:1}" != "/" ]; then
+        PROJECT_DIR="$(cd "$PROJECT_DIR" && pwd)"
+    fi
+    
     if [ ! -d "$PROJECT_DIR" ]; then
         log_error "项目目录不存在: $PROJECT_DIR"
         exit 1
@@ -81,16 +86,25 @@ init_tables() {
     
     cd "$PROJECT_DIR"
     
+    # 检查虚拟环境，如果不存在则尝试使用系统Python
     if [ ! -d "venv" ]; then
-        log_error "虚拟环境不存在，请先运行安装脚本"
-        exit 1
+        log_warn "虚拟环境不存在，尝试使用系统Python"
+        if ! command -v python3 &> /dev/null; then
+            log_error "Python3未安装，请先运行安装脚本"
+            exit 1
+        fi
+        PYTHON_CMD=python3
+    else
+        source venv/bin/activate
+        PYTHON_CMD=python
     fi
     
-    source venv/bin/activate
-    
     # 初始化MindSpider数据库
+    # 设置PYTHONPATH，确保可以导入项目根目录的config模块
+    export PYTHONPATH="$PROJECT_DIR:$PYTHONPATH"
+    
     cd MindSpider
-    python main.py --setup
+    $PYTHON_CMD main.py --setup
     
     log_info "数据库表初始化完成"
 }
