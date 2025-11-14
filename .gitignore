@@ -288,15 +288,16 @@ tmp/
 
 # ==== 配置和密钥 ====
 # 敏感配置文件
-/config.py
+# 注意：根目录的config.py不包含敏感信息（只定义结构），应该提交
+# /config.py  # 已注释，允许提交根目录的config.py
 config.ini
 secrets.json
 .secrets
 *.key
 *.pem
 *.crt
-config.py
-MindSpider/config.py
+# config.py  # 已注释，允许提交根目录的config.py（只包含配置结构，不包含密钥）
+MindSpider/config.py  # MindSpider的config.py可能包含敏感信息，保持忽略
 
 # API 密钥
 api_keys.txt
