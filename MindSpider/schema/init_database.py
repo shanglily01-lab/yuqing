@@ -55,7 +55,8 @@ def _build_database_url() -> str:
     if dialect in ("postgresql", "postgres"):
         return f"postgresql+asyncpg://{user}:{password}@{host}:{port}/{db_name}"
 
-    return f"mysql+aiomysql://{user}:{password}@{host}:{port}/{db_name}"
+    # 使用 asyncmy 作为 MySQL 异步驱动（兼容 Python 3.9+）
+    return f"mysql+asyncmy://{user}:{password}@{host}:{port}/{db_name}"
 
 
 async def _create_views_if_needed(engine_dialect: str):
