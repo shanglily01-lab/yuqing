@@ -1,0 +1,32 @@
+[Unit]
+Description=BettaFish Public Opinion Analysis System
+Documentation=https://github.com/666ghj/BettaFish
+After=network.target mariadb.service
+Requires=mariadb.service
+
+[Service]
+Type=simple
+# 修改为实际运行用户
+User=bettafish
+Group=bettafish
+# 修改为实际项目路径
+WorkingDirectory=/opt/BettaFish
+Environment="PATH=/opt/BettaFish/venv/bin:/usr/local/bin:/usr/bin:/bin"
+Environment="PYTHONUNBUFFERED=1"
+Environment="PYTHONIOENCODING=utf-8"
+Environment="PYTHONUTF8=1"
+# 修改为实际Python路径
+ExecStart=/opt/BettaFish/venv/bin/python /opt/BettaFish/app.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=bettafish
+
+# 资源限制（可选）
+LimitNOFILE=65535
+LimitNPROC=4096
+
+[Install]
+WantedBy=multi-user.target
+
