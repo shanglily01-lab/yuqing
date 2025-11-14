@@ -14,7 +14,7 @@ from typing import Any, Dict, Iterable, List, Optional, Union
 
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, create_async_engine
 from sqlalchemy import text
-from InsightEngine.utils.config import settings
+from .config import settings
 
 __all__ = [
     "get_async_engine",
