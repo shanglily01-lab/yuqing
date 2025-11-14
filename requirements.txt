@@ -36,6 +36,7 @@ aiosqlite==0.21.0
 redis>=4.6.0
 SQLAlchemy==2.0.35
 asyncpg==0.29.0
+asyncmy>=0.2.9  # 异步MySQL驱动，用于SQLAlchemy异步引擎
 
 # ===== 爬虫相关 =====
 playwright==1.45.0
